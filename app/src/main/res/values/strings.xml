@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">"My Best Helper "</string>
+    <string name="general_ok">Ok</string>
+    <string name="general_cancel">Cancel</string>
 </resources>
