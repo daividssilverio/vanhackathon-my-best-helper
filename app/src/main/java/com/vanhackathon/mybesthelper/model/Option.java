@@ -16,6 +16,9 @@ public class Option implements Serializable {
     @SerializedName("thumbnail_url")
     public String questionThumbnailUrl;
 
+    @SerializedName("title")
+    public String title;
+
     @SerializedName("description")
     public String description;
 

@@ -4,10 +4,22 @@
     android:layout_height="match_parent"
     tools:context="com.vanhackathon.mybesthelper.question.QuestionFragment">
 
+    <TextView
+        android:id="@+id/question_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/app_name"
+        android:textSize="18sp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/options_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/question_title"
         android:layout_centerHorizontal="true"
         android:clipToPadding="false"
         android:padding="@dimen/option_offeset" />

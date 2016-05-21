@@ -1,8 +1,12 @@
 package com.vanhackathon.mybesthelper.model;
 
+import android.support.annotation.IntDef;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +21,10 @@ public class Question implements Serializable {
     @SerializedName("description")
     public String description;
 
+    @SerializedName("question_type")
+    @Question.QuestionType
+    public int questionType;
+
     @SerializedName("options")
     public ArrayList<Option> options;
 
@@ -28,4 +36,12 @@ public class Question implements Serializable {
         return false;
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({SMALL_TEXT_WITH_ICON, TEXT_ONLY, SINGLE_COLUMN})
+    public @interface QuestionType {
+    }
+
+    public static final int SMALL_TEXT_WITH_ICON = 0;
+    public static final int TEXT_ONLY = 1;
+    public static final int SINGLE_COLUMN = 2;
 }

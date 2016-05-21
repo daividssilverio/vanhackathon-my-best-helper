@@ -3,5 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="option_offeset">8dp</dimen>
+    <dimen name="card_corners">4dp</dimen>
     <integer name="option_columns">2</integer>
 </resources>
