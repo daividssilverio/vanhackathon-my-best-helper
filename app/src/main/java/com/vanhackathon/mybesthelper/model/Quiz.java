@@ -9,12 +9,14 @@ import java.util.ArrayList;
  * Created by daividsilverio on 5/20/16.
  */
 public class Quiz implements Serializable {
+    private static final long serialVersionUID = 4002774404692042976L;
+
     @SerializedName("quiz_id")
-    long quizId;
+    public long quizId;
 
     @SerializedName("version")
-    int version;
+    public int version;
 
     @SerializedName("questions")
-    ArrayList<Question> questions;
+    public ArrayList<Question> questions;
 }

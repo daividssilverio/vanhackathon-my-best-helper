@@ -2,18 +2,22 @@ package com.vanhackathon.mybesthelper.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by daividsilverio on 5/20/16.
  */
-public class Option {
+public class Option implements Serializable {
+    private static final long serialVersionUID = -6597084758011407776L;
+
     @SerializedName("optionId")
-    long optionId;
+    public long optionId;
 
     @SerializedName("thumbnail_url")
-    String questionThumbnailUrl;
+    public String questionThumbnailUrl;
 
     @SerializedName("description")
-    String description;
+    public String description;
 
     boolean isSelected = false;
 }

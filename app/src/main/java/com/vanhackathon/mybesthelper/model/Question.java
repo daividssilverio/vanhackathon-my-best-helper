@@ -2,20 +2,23 @@ package com.vanhackathon.mybesthelper.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by daividsilverio on 5/20/16.
  */
-public class Question {
+public class Question implements Serializable {
+    private static final long serialVersionUID = 914156478836737996L;
+
     @SerializedName("question_id")
-    long questionId;
+    public long questionId;
 
     @SerializedName("description")
-    String description;
+    public String description;
 
     @SerializedName("options")
-    ArrayList<Option> options;
+    public ArrayList<Option> options;
 
     public boolean isAnswered() {
         if (options == null || options.isEmpty()) return false;
