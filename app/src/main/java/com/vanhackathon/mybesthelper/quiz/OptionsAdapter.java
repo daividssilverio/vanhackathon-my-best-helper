@@ -1,5 +1,6 @@
-package com.vanhackathon.mybesthelper.question;
+package com.vanhackathon.mybesthelper.quiz;
 
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +11,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.vanhackathon.mybesthelper.R;
+import com.vanhackathon.mybesthelper.events.ItemSelectedEvent;
 import com.vanhackathon.mybesthelper.model.Option;
 import com.vanhackathon.mybesthelper.model.Question;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,9 +31,11 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionVi
 
     private final Question question;
     private final int layoutId;
+    private final Handler handler;
 
     public OptionsAdapter(Question question) {
         super();
+        this.handler = new Handler();
         this.question = question;
         switch (question.questionType) {
             case SMALL_TEXT_WITH_ICON:
@@ -123,6 +129,12 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionVi
                     break;
                 }
             }
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    EventBus.getDefault().post(new ItemSelectedEvent());
+                }
+            }, 300);
         }
     }
 }

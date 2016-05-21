@@ -1,12 +1,16 @@
 package com.vanhackathon.mybesthelper.main;
 
 import android.content.Context;
-import android.content.DialogInterface;
+import android.view.View;
 
 import com.vanhackathon.mybesthelper.api.ApiClient;
 import com.vanhackathon.mybesthelper.base.BasePresenter;
+import com.vanhackathon.mybesthelper.events.ItemSelectedEvent;
 import com.vanhackathon.mybesthelper.model.Question;
 import com.vanhackathon.mybesthelper.model.Quiz;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +27,7 @@ public class MainPresenter extends BasePresenter implements QuizContract.UserAct
     public MainPresenter(Context context, QuizContract.View view) {
         super(context);
         this.view = view;
+        EventBus.getDefault().register(this);
     }
 
     private void loadQuiz() {
@@ -36,9 +41,9 @@ public class MainPresenter extends BasePresenter implements QuizContract.UserAct
                     quiz = response.body();
                     view.setupQuizAdapter();
                 } else {
-                    view.showTryAgain(new DialogInterface.OnClickListener() {
+                    view.showTryAgain(true, new View.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onClick(View v) {
                             loadQuiz();
                         }
                     });
@@ -69,5 +74,15 @@ public class MainPresenter extends BasePresenter implements QuizContract.UserAct
         } else {
             view.setupQuizAdapter();
         }
+    }
+
+    public void release() {
+        this.view = null;
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onEvent(ItemSelectedEvent event) {
+        this.view.nextQuestion();
     }
 }

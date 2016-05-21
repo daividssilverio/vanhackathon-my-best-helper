@@ -3,22 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vanhackathon.mybesthelper.MainActivity">
+    tools:context=".main.MainActivity">
+
+    <ViewStub
+        android:id="@+id/loadingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout="@layout/loading" />
+
+    <ViewStub
+        android:id="@+id/tryagainView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/try_again" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <ViewStub
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <ViewStub
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <ViewStub
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string translatable="false" name="fontPathLatoBlack">fonts/Lato-Black.ttf</string>
+    <string translatable="false" name="fontPathLatoBlackItalic">fonts/Lato-BlackItalic.ttf</string>
+    <string translatable="false" name="fontPathLatoBold">fonts/Lato-Bold.ttf</string>
+    <string translatable="false" name="fontPathLatoBoldItalic">fonts/Lato-BoldItalic.ttf</string>
+    <string translatable="false" name="fontPathLatoHairline">fonts/Lato-Hairline.ttf</string>
+    <string translatable="false" name="fontPathLatoHairlineItalic">fonts/Lato-HairlineItalic.ttf</string>
+    <string translatable="false" name="fontPathLatoItalic">fonts/Lato-Italic.ttf</string>
+    <string translatable="false" name="fontPathLatoLight">fonts/Lato-Light.ttf</string>
+    <string translatable="false" name="fontPathLatoLightItalic">fonts/Lato-LightItalic.ttf</string>
+    <string translatable="false" name="fontPathLatoRegular">fonts/Lato-Regular.ttf</string>
+</resources>

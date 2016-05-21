@@ -1,0 +1,105 @@
+package com.vanhackathon.mybesthelper.main;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.ViewStub;
+
+import com.vanhackathon.mybesthelper.R;
+import com.vanhackathon.mybesthelper.base.BaseActivity;
+import com.vanhackathon.mybesthelper.quiz.QuestionFragment;
+import com.vanhackathon.mybesthelper.quiz.SubmitQuizFragment;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MainActivity extends BaseActivity implements QuizContract.View {
+
+    @BindView(R.id.viewPager)
+    public ViewPager questionsViewPager;
+
+    @BindView(R.id.loadingView)
+    ViewStub loadingViewStub;
+
+    @BindView(R.id.tryagainView)
+    ViewStub tryAgainViewStub;
+
+    private static MainPresenter presenter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        if (presenter == null) {
+            presenter = new MainPresenter(this, this);
+        }
+        presenter.init(this, this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.release();
+        super.onDestroy();
+    }
+
+    @Override
+    public void showLoadingPlaceholder(boolean show) {
+        loadingViewStub.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void showTryAgain(boolean show, View.OnClickListener listener) {
+        tryAgainViewStub.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setupQuizAdapter() {
+        questionsViewPager.setAdapter(new QuestionsPagerAdapter(getSupportFragmentManager()));
+    }
+
+    @Override
+    public void moteToQuestion(int position) {
+
+    }
+
+    @Override
+    public void nextQuestion() {
+        if (questionsViewPager != null) {
+            PagerAdapter adapter = questionsViewPager.getAdapter();
+            if (adapter == null) return;
+            int currentItem = questionsViewPager.getCurrentItem();
+            if (currentItem >= 0 && (currentItem + 1) < adapter.getCount()) {
+                questionsViewPager.setCurrentItem(currentItem + 1, true);
+            }
+        }
+    }
+
+    public MainPresenter getPresenter() {
+        return presenter;
+    }
+
+    public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
+
+        public QuestionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == getCount() - 1) {
+                return new SubmitQuizFragment();
+            }
+            return QuestionFragment.newInstance(position);
+        }
+
+        @Override
+        public int getCount() {
+            return presenter.quizSize() + 1;
+        }
+    }
+}

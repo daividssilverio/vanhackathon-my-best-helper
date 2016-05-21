@@ -1,4 +1,4 @@
-package com.vanhackathon.mybesthelper.question;
+package com.vanhackathon.mybesthelper.quiz;
 
 
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.vanhackathon.mybesthelper.MainActivity;
+import com.vanhackathon.mybesthelper.main.MainActivity;
 import com.vanhackathon.mybesthelper.R;
 import com.vanhackathon.mybesthelper.model.Question;
 import com.vanhackathon.mybesthelper.util.ItemOffesetDecoration;
