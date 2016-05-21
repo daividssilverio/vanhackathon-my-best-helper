@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import com.vanhackathon.mybesthelper.base.BaseActivity;
 import com.vanhackathon.mybesthelper.main.MainPresenter;
 import com.vanhackathon.mybesthelper.main.QuizContract;
-import com.vanhackathon.mybesthelper.model.Question;
 import com.vanhackathon.mybesthelper.question.QuestionFragment;
 
 import butterknife.BindView;
@@ -52,7 +51,7 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
         return presenter;
     }
 
-    public class QuestionsPagerAdapter extends FragmentStatePagerAdapter implements QuestionFragment.QuestionHolderListener {
+    public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
         public QuestionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -66,11 +65,6 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
         @Override
         public int getCount() {
             return presenter.quizSize();
-        }
-
-        @Override
-        public Question getQuestion(int index) {
-            return presenter.getQuestion(index);
         }
     }
 }

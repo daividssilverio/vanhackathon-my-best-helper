@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Option implements Serializable {
     private static final long serialVersionUID = -6597084758011407776L;
 
-    @SerializedName("optionId")
+    @SerializedName("option_id")
     public long optionId;
 
     @SerializedName("thumbnail_url")
@@ -22,5 +22,5 @@ public class Option implements Serializable {
     @SerializedName("description")
     public String description;
 
-    boolean isSelected = false;
+    public boolean isSelected = false;
 }
