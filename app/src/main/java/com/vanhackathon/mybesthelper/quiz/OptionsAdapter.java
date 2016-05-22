@@ -106,7 +106,10 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionVi
                 description.setText(option.description);
             }
             if (questionThumbnailImageView != null) {
-                Picasso.with(itemView.getContext()).load(option.questionThumbnailUrl).into(questionThumbnailImageView);
+                Picasso.with(itemView.getContext())
+                        .load(option.questionThumbnailUrl)
+                        .placeholder(R.drawable.ic_photo_black_24dp)
+                        .into(questionThumbnailImageView);
             }
         }
 

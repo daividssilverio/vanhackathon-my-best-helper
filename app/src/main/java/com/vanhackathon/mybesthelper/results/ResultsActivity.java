@@ -86,7 +86,7 @@ public class ResultsActivity extends BaseActivity implements ResultsContract.Vie
     public void showResultInfo(String resultTitle, String resultDescription, String resultImageUrl) {
         archetypeNameTextView.setText(resultTitle);
         archetypeDescriptionTextView.setText(resultDescription);
-        Picasso.with(this).load(resultImageUrl).into(archetypeImageView);
+        Picasso.with(this).load(resultImageUrl).placeholder(R.drawable.ic_photo_black_24dp).into(archetypeImageView);
     }
 
     @Override

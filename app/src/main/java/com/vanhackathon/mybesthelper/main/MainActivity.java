@@ -175,7 +175,7 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
 
         @Override
         public int getCount() {
-            return presenter.quizSize() + 1;
+            return presenter == null ? 0 : presenter.quizSize() + 1;
         }
     }
 }
