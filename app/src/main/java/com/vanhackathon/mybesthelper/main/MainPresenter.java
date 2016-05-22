@@ -32,6 +32,7 @@ public class MainPresenter extends BasePresenter implements QuizContract.UserAct
     private QuizContract.View view;
     public Quiz quiz;
     private final Lock lock = new ReentrantLock(true);
+    private int currentQuizId;
 
     public MainPresenter(Context context, QuizContract.View view) {
         super(context);
@@ -41,7 +42,7 @@ public class MainPresenter extends BasePresenter implements QuizContract.UserAct
 
     private void loadQuiz() {
         view.showLoadingPlaceholder(true);
-        ApiClient.getQuiz(new Callback<Quiz>() {
+        ApiClient.getQuiz(currentQuizId, new Callback<Quiz>() {
 
             @Override
             public void onResponse(Call<Quiz> call, Response<Quiz> response) {
@@ -75,9 +76,10 @@ public class MainPresenter extends BasePresenter implements QuizContract.UserAct
         return quiz.questions.get(index);
     }
 
-    public void init(Context context, QuizContract.View view) {
+    public void init(Context context, QuizContract.View view, int currentQuizId) {
         this.context = context;
         this.view = view;
+        this.currentQuizId = currentQuizId;
         if (quiz == null) {
             loadQuiz();
         } else {

@@ -12,10 +12,10 @@ public class QuizAnswers implements Serializable {
     private static final long serialVersionUID = -6936277851350019510L;
 
     @SerializedName("quiz_id")
-    long quizId;
+    public long quizId;
 
     @SerializedName("answers")
-    ArrayList<Answer> answers;
+    public ArrayList<Answer> answers;
 
     public QuizAnswers(long quizId, ArrayList<Answer> answers) {
         this.quizId = quizId;

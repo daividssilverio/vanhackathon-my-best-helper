@@ -25,4 +25,5 @@
     <string name="general_success_title">Success!</string>
     <string name="activity_result_email_sent">Your e-mail was sent successfully!</string>
     <string name="activity_main_sending_email">Sending your profile...</string>
+    <string name="activity_start_showcase_button">Showcase Option Types</string>
 </resources>

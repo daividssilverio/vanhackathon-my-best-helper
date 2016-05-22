@@ -11,6 +11,8 @@ import butterknife.OnClick;
 
 public class StartActivity extends AppCompatActivity {
 
+    public static final String QUIZ_ID = "QUIZ_ID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +22,11 @@ public class StartActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_start)
     public void startQuiz() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class).putExtra(QUIZ_ID, 1));
+    }
+
+    @OnClick(R.id.button_start_showcase)
+    public void startQuizShowCase() {
+        startActivity(new Intent(this, MainActivity.class).putExtra(QUIZ_ID, 2));
     }
 }

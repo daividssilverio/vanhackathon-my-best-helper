@@ -10,6 +10,9 @@ import java.io.Serializable;
 public class ProfileResult implements Serializable {
     private static final long serialVersionUID = -285647825903985368L;
 
+    @SerializedName("quiz_id")
+    public long quizId;
+
     @SerializedName("title")
     public String archeTypeTitle;
 

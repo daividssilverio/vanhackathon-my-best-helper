@@ -13,6 +13,7 @@ import android.view.ViewStub;
 import android.widget.Toast;
 
 import com.vanhackathon.mybesthelper.R;
+import com.vanhackathon.mybesthelper.StartActivity;
 import com.vanhackathon.mybesthelper.base.BaseActivity;
 import com.vanhackathon.mybesthelper.quiz.QuestionFragment;
 import com.vanhackathon.mybesthelper.quiz.SubmitQuizFragment;
@@ -38,6 +39,7 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
 
     private static MainPresenter presenter;
     private ProgressDialog progressDialog;
+    private int currentQuizId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         progressDialog = new ProgressDialog(this);
+        currentQuizId = getIntent().getIntExtra(StartActivity.QUIZ_ID, 0);
     }
 
     @Override
@@ -53,7 +56,7 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
         if (presenter == null) {
             presenter = new MainPresenter(this, this);
         }
-        presenter.init(this, this);
+        presenter.init(this, this, currentQuizId);
     }
 
     @Override
