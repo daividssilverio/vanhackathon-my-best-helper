@@ -1,5 +1,6 @@
 package com.vanhackathon.mybesthelper.main;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,11 +9,13 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.Toast;
 
 import com.vanhackathon.mybesthelper.R;
 import com.vanhackathon.mybesthelper.base.BaseActivity;
 import com.vanhackathon.mybesthelper.quiz.QuestionFragment;
 import com.vanhackathon.mybesthelper.quiz.SubmitQuizFragment;
+import com.vanhackathon.mybesthelper.util.DialogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +38,11 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (presenter == null) {
             presenter = new MainPresenter(this, this);
         }
@@ -42,9 +50,21 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
     }
 
     @Override
+    public void onBackPressed() {
+        presenter.onBackPressed();
+    }
+
+    @Override
     protected void onDestroy() {
-        presenter.release();
+        clearPresenter();
         super.onDestroy();
+    }
+
+    private void clearPresenter() {
+        if (presenter != null) {
+            presenter.release();
+            presenter = null;
+        }
     }
 
     @Override
@@ -63,8 +83,10 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
     }
 
     @Override
-    public void moteToQuestion(int position) {
-
+    public void moveToQuestion(int position) {
+        if (questionsViewPager != null) {
+            questionsViewPager.setCurrentItem(position, true);
+        }
     }
 
     @Override
@@ -77,6 +99,22 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
                 questionsViewPager.setCurrentItem(currentItem + 1, true);
             }
         }
+    }
+
+    @Override
+    public void alert(String message) {
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showConfirmationDialog(String confirmationTitle, String confirmationMessage, DialogInterface.OnClickListener listener) {
+        DialogUtils.showConfirmation(this, confirmationTitle, confirmationMessage, listener);
+    }
+
+    @Override
+    public void exit() {
+        clearPresenter();
+        finish();
     }
 
     public MainPresenter getPresenter() {

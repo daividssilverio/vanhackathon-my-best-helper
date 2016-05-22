@@ -1,10 +1,13 @@
 package com.vanhackathon.mybesthelper.main;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 
+import com.vanhackathon.mybesthelper.R;
 import com.vanhackathon.mybesthelper.api.ApiClient;
 import com.vanhackathon.mybesthelper.base.BasePresenter;
+import com.vanhackathon.mybesthelper.events.CalculateResultRequestEvent;
 import com.vanhackathon.mybesthelper.events.ItemSelectedEvent;
 import com.vanhackathon.mybesthelper.model.Question;
 import com.vanhackathon.mybesthelper.model.Quiz;
@@ -84,5 +87,37 @@ public class MainPresenter extends BasePresenter implements QuizContract.UserAct
     @Subscribe
     public void onEvent(ItemSelectedEvent event) {
         this.view.nextQuestion();
+    }
+
+    @Subscribe
+    public void onEvent(CalculateResultRequestEvent event) {
+        if (validateAnswers()) {
+
+        }
+    }
+
+    private boolean validateAnswers() {
+        if (quiz == null || quiz.questions == null) return false;
+        for (int i = 0; i < quiz.questions.size(); i++) {
+            Question question = quiz.questions.get(i);
+            if (!question.isAnswered()) {
+                this.view.moveToQuestion(i);
+                this.view.alert(context.getString(R.string.activity_main_select_one));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        String confirmationTitle = context.getString(R.string.activity_main_exit_title);
+        String confirmationMessage = context.getString(R.string.activity_main_exit_message);
+        view.showConfirmationDialog(confirmationTitle, confirmationMessage, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                view.exit();
+            }
+        });
     }
 }

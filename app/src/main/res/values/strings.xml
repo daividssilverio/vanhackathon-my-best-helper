@@ -9,4 +9,10 @@
     <string name="activity_start_select_one">Select the card that better matches your opinion :)</string>
     <string name="activity_start_start_button">Let\'s do this!</string>
     <string name="loading_quiz">Loading your quiz…</string>
+    <string name="fragment_submit_submit">Calculate Results!</string>
+    <string name="activity_main_select_one">Please select one option :)</string>
+    <string name="activity_main_exit_title">Leave</string>
+    <string name="activity_main_exit_message">Do you really want to leave before finishing the Quiz?</string>
+    <string name="general_yes">Yes</string>
+    <string name="general_no">No</string>
 </resources>

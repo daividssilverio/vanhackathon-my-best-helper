@@ -32,6 +32,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionVi
     private final Question question;
     private final int layoutId;
     private final Handler handler;
+    private boolean isAnimating = false;
 
     public OptionsAdapter(Question question) {
         super();
@@ -119,9 +120,11 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionVi
     }
 
     private void updateSelectedItem(Option selectedOption) {
+        if (isAnimating) return;
         if (selectedOption.isSelected) {
             selectedOption.isSelected = false;
         } else {
+            isAnimating = true;
             selectedOption.isSelected = true;
             for (Option option : question.options) {
                 if (option.isSelected && (option.optionId != selectedOption.optionId)) {
@@ -132,6 +135,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionVi
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    isAnimating = false;
                     EventBus.getDefault().post(new ItemSelectedEvent());
                 }
             }, 300);
