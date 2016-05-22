@@ -18,4 +18,11 @@
     <string name="activity_result_send_email">Send my profile to My Best Helper</string>
     <string name="email_hint">E-mail address</string>
     <string name="activity_result_send_email_explantion">Send your e-mail to myBestHelper and we\'ll get in contact soon.</string>
+    <string name="activity_main_calculate_result">Calculating your profile...</string>
+    <string name="general_error_title">Oops...</string>
+    <string name="general_error_message">Hmm... something went wrong...</string>
+    <string name="validation_invalid_email">Invalid E-mail</string>
+    <string name="general_success_title">Success!</string>
+    <string name="activity_result_email_sent">Your e-mail was sent successfully!</string>
+    <string name="activity_main_sending_email">Sending your profile...</string>
 </resources>

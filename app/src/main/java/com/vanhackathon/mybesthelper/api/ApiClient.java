@@ -5,6 +5,8 @@ import com.vanhackathon.mybesthelper.model.ProfileResult;
 import com.vanhackathon.mybesthelper.model.Quiz;
 import com.vanhackathon.mybesthelper.model.QuizAnswers;
 
+import java.util.HashMap;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -27,6 +29,15 @@ public class ApiClient {
 
     public static Call<ProfileResult> calculateProfile(QuizAnswers answers, Callback<ProfileResult> callback) {
         Call<ProfileResult> call = getApiServices().calculateProfile(answers);
+        call.enqueue(callback);
+        return call;
+    }
+
+    public static Call<Void> sendEmail(String email, ProfileResult profileResult, Callback<Void> callback) {
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("email", email);
+        body.put("profile_result", profileResult);
+        Call<Void> call = getApiServices().sendEmail(body);
         call.enqueue(callback);
         return call;
     }

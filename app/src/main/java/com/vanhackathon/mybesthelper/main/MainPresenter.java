@@ -106,18 +106,34 @@ public class MainPresenter extends BasePresenter implements QuizContract.UserAct
     }
 
     private void sendResults() {
+        view.showProgressDialog(context.getString(R.string.activity_main_calculate_result));
         ApiClient.calculateProfile(quiz.getAnswers(), new Callback<ProfileResult>() {
             @Override
             public void onResponse(Call<ProfileResult> call, Response<ProfileResult> response) {
-
+                view.dismissProgressDialog();
+                if (response.isSuccessful()) {
+                    showResults(response.body());
+                } else {
+                    String tryAgainTitle = context.getString(R.string.general_error_title);
+                    String tryAgainMessage = context.getString(R.string.general_error_message);
+                    view.showTryAgainDialog(tryAgainTitle, tryAgainMessage, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sendResults();
+                        }
+                    });
+                }
             }
 
             @Override
             public void onFailure(Call<ProfileResult> call, Throwable t) {
-
+                view.dismissProgressDialog();
             }
         });
-        ResultsActivity.start(context, quiz);
+    }
+
+    private void showResults(ProfileResult body) {
+        ResultsActivity.start(context, body);
         this.view.exit();
     }
 

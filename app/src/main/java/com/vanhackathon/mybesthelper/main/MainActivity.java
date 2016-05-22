@@ -1,5 +1,6 @@
 package com.vanhackathon.mybesthelper.main;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,7 @@ import com.vanhackathon.mybesthelper.base.BaseActivity;
 import com.vanhackathon.mybesthelper.quiz.QuestionFragment;
 import com.vanhackathon.mybesthelper.quiz.SubmitQuizFragment;
 import com.vanhackathon.mybesthelper.util.DialogUtils;
-import com.viewpagerindicator.UnderlinePageIndicator;
+import com.viewpagerindicator.CirclePageIndicator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,15 +34,17 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
     ViewStub tryAgainViewStub;
 
     @BindView(R.id.pager_indicator)
-    UnderlinePageIndicator pageIndicator;
+    CirclePageIndicator pageIndicator;
 
     private static MainPresenter presenter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        progressDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -87,7 +90,6 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
             questionsViewPager.setAdapter(new QuestionsPagerAdapter(getSupportFragmentManager()));
         }
         pageIndicator.setViewPager(questionsViewPager);
-        pageIndicator.setFades(false);
     }
 
     @Override
@@ -132,6 +134,22 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
     public void exit() {
         clearPresenter();
         finish();
+    }
+
+    @Override
+    public void showProgressDialog(String string) {
+        progressDialog.setMessage(string);
+        progressDialog.show();
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void showTryAgainDialog(String tryAgainTitle, String tryAgainMessage, DialogInterface.OnClickListener listener) {
+        DialogUtils.showTryAgain(this, tryAgainTitle, tryAgainMessage, listener);
     }
 
     public MainPresenter getPresenter() {

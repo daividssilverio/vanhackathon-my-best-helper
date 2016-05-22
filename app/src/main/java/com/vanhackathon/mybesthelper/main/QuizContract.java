@@ -22,6 +22,12 @@ public class QuizContract {
         void showConfirmationDialog(String confirmationTitle, String confirmationMessage, DialogInterface.OnClickListener listener);
 
         void exit();
+
+        void showProgressDialog(String string);
+
+        void dismissProgressDialog();
+
+        void showTryAgainDialog(String tryAgainTitle, String tryAgainMessage, DialogInterface.OnClickListener listener);
     }
 
     public interface UserActionsListener {

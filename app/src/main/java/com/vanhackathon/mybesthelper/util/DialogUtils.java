@@ -21,6 +21,10 @@ public class DialogUtils {
         return getBuilder(context, confirmationTitle, confirmationMessage, listener, R.string.general_yes, R.string.general_no).show();
     }
 
+    public static Dialog showMessage(Context context, String title, String message) {
+        return getBuilder(context, title, message, null).show();
+    }
+
     public static AlertDialog.Builder getBuilder(Context context, String title, String message,
                                                  DialogInterface.OnClickListener positiveButtonListener,
                                                  @StringRes int... buttonStringResIds) {
