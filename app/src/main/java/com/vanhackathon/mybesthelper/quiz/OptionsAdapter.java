@@ -118,8 +118,10 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionVi
     private void updateSelectedItem(Option selectedOption) {
         if (selectedOption.isSelected) {
             selectedOption.isSelected = false;
+            question.selectedOptionId = -1;
         } else {
             selectedOption.isSelected = true;
+            question.selectedOptionId = selectedOption.optionId;
             EventBus.getDefault().post(new ItemSelectedEvent());
             for (Option option : question.options) {
                 if (option.isSelected && (option.optionId != selectedOption.optionId)) {

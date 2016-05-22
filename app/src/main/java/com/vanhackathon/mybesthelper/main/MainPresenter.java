@@ -9,6 +9,7 @@ import com.vanhackathon.mybesthelper.api.ApiClient;
 import com.vanhackathon.mybesthelper.base.BasePresenter;
 import com.vanhackathon.mybesthelper.events.CalculateResultRequestEvent;
 import com.vanhackathon.mybesthelper.events.ItemSelectedEvent;
+import com.vanhackathon.mybesthelper.model.ProfileResult;
 import com.vanhackathon.mybesthelper.model.Question;
 import com.vanhackathon.mybesthelper.model.Quiz;
 import com.vanhackathon.mybesthelper.results.ResultsActivity;
@@ -100,11 +101,22 @@ public class MainPresenter extends BasePresenter implements QuizContract.UserAct
     @Subscribe
     public void onEvent(CalculateResultRequestEvent event) {
         if (validateAnswers()) {
-            showResults();
+            sendResults();
         }
     }
 
-    private void showResults() {
+    private void sendResults() {
+        ApiClient.calculateProfile(quiz.getAnswers(), new Callback<ProfileResult>() {
+            @Override
+            public void onResponse(Call<ProfileResult> call, Response<ProfileResult> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResult> call, Throwable t) {
+
+            }
+        });
         ResultsActivity.start(context, quiz);
         this.view.exit();
     }

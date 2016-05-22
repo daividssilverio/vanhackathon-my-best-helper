@@ -28,12 +28,18 @@ public class Question implements Serializable {
     @SerializedName("options")
     public ArrayList<Option> options;
 
+    public long selectedOptionId = -1;
+
     public boolean isAnswered() {
         if (options == null || options.isEmpty()) return false;
         for (Option option : options) {
             if (option.isSelected) return true;
         }
         return false;
+    }
+
+    public Answer getAnswer() {
+        return new Answer(this.questionId, selectedOptionId);
     }
 
     @Retention(RetentionPolicy.SOURCE)

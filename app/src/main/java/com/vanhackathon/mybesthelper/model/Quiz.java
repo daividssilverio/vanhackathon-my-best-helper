@@ -19,4 +19,12 @@ public class Quiz implements Serializable {
 
     @SerializedName("questions")
     public ArrayList<Question> questions;
+
+    public QuizAnswers getAnswers() {
+        ArrayList<Answer> answers = new ArrayList<>();
+        for (Question question : questions) {
+            answers.add(question.getAnswer());
+        }
+        return new QuizAnswers(this.quizId, answers);
+    }
 }

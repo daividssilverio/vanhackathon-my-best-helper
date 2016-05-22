@@ -1,7 +1,9 @@
 package com.vanhackathon.mybesthelper.api;
 
 import com.vanhackathon.mybesthelper.BuildConfig;
+import com.vanhackathon.mybesthelper.model.ProfileResult;
 import com.vanhackathon.mybesthelper.model.Quiz;
+import com.vanhackathon.mybesthelper.model.QuizAnswers;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -19,6 +21,12 @@ public class ApiClient {
 
     public static Call<Quiz> getQuiz(Callback<Quiz> callback) {
         Call<Quiz> call = getApiServices().getQuiz();
+        call.enqueue(callback);
+        return call;
+    }
+
+    public static Call<ProfileResult> calculateProfile(QuizAnswers answers, Callback<ProfileResult> callback) {
+        Call<ProfileResult> call = getApiServices().calculateProfile(answers);
         call.enqueue(callback);
         return call;
     }

@@ -32,5 +32,4 @@ public class SubmitQuizFragment extends Fragment {
     public void onCalculateResultsButtonClick() {
         EventBus.getDefault().post(new CalculateResultRequestEvent());
     }
-
 }

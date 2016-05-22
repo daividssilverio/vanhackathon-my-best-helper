@@ -83,16 +83,17 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
 
     @Override
     public void setupQuizAdapter() {
-        questionsViewPager.setAdapter(new QuestionsPagerAdapter(getSupportFragmentManager()));
-        pageIndicator.setViewPager(questionsViewPager, 0);
-        pageIndicator.setFades(false
-        );
+        if (questionsViewPager.getAdapter() == null) {
+            questionsViewPager.setAdapter(new QuestionsPagerAdapter(getSupportFragmentManager()));
+        }
+        pageIndicator.setViewPager(questionsViewPager);
+        pageIndicator.setFades(false);
     }
 
     @Override
-    public void moveToQuestion(int position) {
+    public void moveToQuestion(final int position) {
         if (questionsViewPager != null) {
-            questionsViewPager.setCurrentItem(position, true);
+            setViewPagerItem(position);
         }
     }
 
@@ -103,10 +104,18 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
             if (adapter == null) return;
             int currentItem = questionsViewPager.getCurrentItem();
             if (currentItem >= 0 && (currentItem + 1) < adapter.getCount()) {
-                questionsViewPager.setCurrentItem(currentItem + 1, true);
-                Toast.makeText(MainActivity.this, "" + (currentItem + 1), Toast.LENGTH_SHORT).show();
+                setViewPagerItem(currentItem + 1);
             }
         }
+    }
+
+    private void setViewPagerItem(final int position) {
+        questionsViewPager.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                questionsViewPager.setCurrentItem(position, true);
+            }
+        }, 100);
     }
 
     @Override
