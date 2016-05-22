@@ -16,12 +16,12 @@ import retrofit2.http.Path;
  * Created by daividsilverio on 5/20/16.
  */
 public interface ApiServices {
-    @GET("/quiz/{quiz_id}")
+    @GET("vanhackathon/mybesthelper/quiz/{quiz_id}")
     Call<Quiz> getQuiz(@Path("quiz_id") int quizId);
 
-    @POST("/quiz/{quiz_id}/calculateProfile")
+    @POST("vanhackathon/mybesthelper/quiz/{quiz_id}/calculateProfile")
     Call<ProfileResult> calculateProfile(@Path("quiz_id") long quizId, @Body QuizAnswers answers);
 
-    @POST("/quiz/{quiz_id}/sendEmail")
+    @POST("vanhackathon/mybesthelper/quiz/{quiz_id}/sendEmail")
     Call<Void> sendEmail(@Path("quiz_id") long quizId, @Body HashMap<String, Object> email);
 }

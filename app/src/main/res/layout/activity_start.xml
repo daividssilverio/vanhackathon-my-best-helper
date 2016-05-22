@@ -46,7 +46,7 @@
             fontPath="@string/fontPathLatoBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/button_start_showcase"
+            android:layout_above="@+id/button_start_showcase"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/selector_button_primary_color"
