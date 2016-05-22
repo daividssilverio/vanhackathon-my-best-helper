@@ -23,4 +23,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.viewpagerindicator.UnderlinePageIndicator
+
+        android:id="@+id/pager_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="bottom" />
+
 </FrameLayout>

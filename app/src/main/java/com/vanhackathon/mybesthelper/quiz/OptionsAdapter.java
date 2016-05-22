@@ -1,6 +1,5 @@
 package com.vanhackathon.mybesthelper.quiz;
 
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,12 +30,9 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionVi
 
     private final Question question;
     private final int layoutId;
-    private final Handler handler;
-    private boolean isAnimating = false;
 
     public OptionsAdapter(Question question) {
         super();
-        this.handler = new Handler();
         this.question = question;
         switch (question.questionType) {
             case SMALL_TEXT_WITH_ICON:
@@ -120,25 +116,17 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionVi
     }
 
     private void updateSelectedItem(Option selectedOption) {
-        if (isAnimating) return;
         if (selectedOption.isSelected) {
             selectedOption.isSelected = false;
         } else {
-            isAnimating = true;
             selectedOption.isSelected = true;
+            EventBus.getDefault().post(new ItemSelectedEvent());
             for (Option option : question.options) {
                 if (option.isSelected && (option.optionId != selectedOption.optionId)) {
                     option.isSelected = false;
                     break;
                 }
             }
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    isAnimating = false;
-                    EventBus.getDefault().post(new ItemSelectedEvent());
-                }
-            }, 300);
         }
     }
 }

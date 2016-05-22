@@ -5,7 +5,6 @@
     android:background="@color/colorTertiary3"
     tools:context="com.vanhackathon.mybesthelper.quiz.QuestionFragment">
 
-
     <FrameLayout
         android:id="@+id/question_title_container"
         android:layout_width="match_parent"

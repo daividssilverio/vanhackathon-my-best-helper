@@ -15,4 +15,7 @@
     <string name="activity_main_exit_message">Do you really want to leave before finishing the Quiz?</string>
     <string name="general_yes">Yes</string>
     <string name="general_no">No</string>
+    <string name="activity_result_send_email">Send my profile to My Best Helper</string>
+    <string name="email_hint">E-mail address</string>
+    <string name="activity_result_send_email_explantion">Send your e-mail to myBestHelper and we\'ll get in contact soon.</string>
 </resources>

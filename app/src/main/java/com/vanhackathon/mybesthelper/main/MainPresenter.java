@@ -11,9 +11,13 @@ import com.vanhackathon.mybesthelper.events.CalculateResultRequestEvent;
 import com.vanhackathon.mybesthelper.events.ItemSelectedEvent;
 import com.vanhackathon.mybesthelper.model.Question;
 import com.vanhackathon.mybesthelper.model.Quiz;
+import com.vanhackathon.mybesthelper.results.ResultsActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +30,7 @@ public class MainPresenter extends BasePresenter implements QuizContract.UserAct
 
     private QuizContract.View view;
     public Quiz quiz;
+    private final Lock lock = new ReentrantLock(true);
 
     public MainPresenter(Context context, QuizContract.View view) {
         super(context);
@@ -86,14 +91,22 @@ public class MainPresenter extends BasePresenter implements QuizContract.UserAct
 
     @Subscribe
     public void onEvent(ItemSelectedEvent event) {
-        this.view.nextQuestion();
+        if (lock.tryLock()) {
+            view.nextQuestion();
+            lock.unlock();
+        }
     }
 
     @Subscribe
     public void onEvent(CalculateResultRequestEvent event) {
         if (validateAnswers()) {
-
+            showResults();
         }
+    }
+
+    private void showResults() {
+        ResultsActivity.start(context, quiz);
+        this.view.exit();
     }
 
     private boolean validateAnswers() {

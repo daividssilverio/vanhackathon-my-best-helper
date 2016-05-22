@@ -16,6 +16,7 @@ import com.vanhackathon.mybesthelper.base.BaseActivity;
 import com.vanhackathon.mybesthelper.quiz.QuestionFragment;
 import com.vanhackathon.mybesthelper.quiz.SubmitQuizFragment;
 import com.vanhackathon.mybesthelper.util.DialogUtils;
+import com.viewpagerindicator.UnderlinePageIndicator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +31,9 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
 
     @BindView(R.id.tryagainView)
     ViewStub tryAgainViewStub;
+
+    @BindView(R.id.pager_indicator)
+    UnderlinePageIndicator pageIndicator;
 
     private static MainPresenter presenter;
 
@@ -80,6 +84,9 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
     @Override
     public void setupQuizAdapter() {
         questionsViewPager.setAdapter(new QuestionsPagerAdapter(getSupportFragmentManager()));
+        pageIndicator.setViewPager(questionsViewPager, 0);
+        pageIndicator.setFades(false
+        );
     }
 
     @Override
@@ -97,6 +104,7 @@ public class MainActivity extends BaseActivity implements QuizContract.View {
             int currentItem = questionsViewPager.getCurrentItem();
             if (currentItem >= 0 && (currentItem + 1) < adapter.getCount()) {
                 questionsViewPager.setCurrentItem(currentItem + 1, true);
+                Toast.makeText(MainActivity.this, "" + (currentItem + 1), Toast.LENGTH_SHORT).show();
             }
         }
     }
